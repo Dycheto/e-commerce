@@ -1,22 +1,25 @@
-import { createContext, useState } from 'react';
-import { login } from '../services/authService'
+import { createContext } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export const AuthContext = createContext();
 
-const initialState = {
+const initialAuthState = {
     email: ``,
+    localId: ``,
+    refreshToken: ``,
+    idToken: '',
+    registered: Boolean(false)
 }
 
-export const AuthProvider = ({
-    children
-}) => {
+export const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState(initialState);
+    const [user, setUser] = useLocalStorage(`user`, initialAuthState);
 
-    const login = (email, password) => {
-        setUser({
-            email
-        })
+    const login = (authData) => {
+
+        setUser(authData);
+
+        console.log(user.email);
     }
 
     return (
