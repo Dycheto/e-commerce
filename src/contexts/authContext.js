@@ -22,8 +22,13 @@ export const AuthProvider = ({ children }) => {
         console.log(user.email);
     }
 
+    const logout = () => {
+
+        setUser(initialAuthState);
+    }
+
     return (
-        <AuthContext.Provider value={{ user, login, isAuthenticated: Boolean(user.email) }}>
+        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: Boolean(user.email) }}>
             {children}
         </AuthContext.Provider>
     )

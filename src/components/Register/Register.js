@@ -3,12 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as authService from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 function Register() {
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
     const [repeatPass, setRepeatPass] = useState(``);
 
+    const { login } = useAuth();
     const navigate = useNavigate()
 
     const handleRegiser = (e) => {
@@ -20,10 +22,10 @@ function Register() {
 
         authService.register(email, password)
             .then(data => {
-                console.log(data.localId);
+
+                login(data);
                 navigate(`/`);
             })
-
     }
 
     return (
